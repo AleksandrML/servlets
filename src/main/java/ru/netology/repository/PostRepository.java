@@ -4,6 +4,7 @@ import ru.netology.model.Post;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class PostRepository {
@@ -22,8 +23,8 @@ public class PostRepository {
   }
 
   public Post save(Post post) {
-    var id = post.getId();
-    if (id == 0) {
+    AtomicInteger id = new AtomicInteger((int) post.getId());
+    if (id.get() == 0) {
       if (storage.size() > 0) {
         var idList = storage.keySet().stream().sorted().toList();
         post.setId(idList.get(idList.size() - 1) + 1); // use next free id
