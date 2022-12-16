@@ -15,7 +15,7 @@ public class PostRepository {
   private final AtomicLong id = new AtomicLong(0);
 
   public List<Post> all() {
-    return storage.values().stream().toList();
+    return new ArrayList<>(storage.values());
   }
 
   public Optional<Post> getById(long id) {
@@ -29,7 +29,8 @@ public class PostRepository {
     id.set(post.getId());
     if (id.get() == 0) {
       if (storage.size() > 0) {
-        var idList = storage.keySet().stream().sorted().toList();
+        List<Long> idList = new ArrayList<>(storage.keySet());
+        Collections.sort(idList);
         post.setId(idList.get(idList.size() - 1) + 1); // use next free id
       } else {
         post.setId(1);
