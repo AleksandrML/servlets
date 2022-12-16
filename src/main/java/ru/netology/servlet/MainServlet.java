@@ -1,6 +1,7 @@
 package ru.netology.servlet;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.netology.config.JavaConfig;
 import ru.netology.controller.PostController;
 import ru.netology.repository.PostRepository;
 import ru.netology.service.PostService;
@@ -14,15 +15,11 @@ public class MainServlet extends HttpServlet {
   public static final String POST_METHOD = "POST";
   public static final String DELETE_METHOD = "DELETE";
   private PostController controller;
-  private PostService service;
-  private PostRepository repository;
 
   @Override
   public void init() {
-    final var context = new AnnotationConfigApplicationContext("ru.netology");
+    final var context = new AnnotationConfigApplicationContext(JavaConfig.class);
     controller = context.getBean(PostController.class);
-    service = context.getBean(PostService.class);
-    repository = context.getBean(PostRepository.class);
   }
 
   @Override
