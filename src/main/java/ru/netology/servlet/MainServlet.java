@@ -14,11 +14,15 @@ public class MainServlet extends HttpServlet {
   public static final String POST_METHOD = "POST";
   public static final String DELETE_METHOD = "DELETE";
   private PostController controller;
+  private PostService service;
+  private PostRepository repository;
 
   @Override
   public void init() {
     final var context = new AnnotationConfigApplicationContext("ru.netology");
     controller = context.getBean(PostController.class);
+    service = context.getBean(PostService.class);
+    repository = context.getBean(PostRepository.class);
   }
 
   @Override
